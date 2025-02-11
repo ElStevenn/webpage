@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include CSS styles -->
+    <style>
+    /* Root variables */
+    :root {
+        --bg-color: #0D0D0D;
+        --text-color: #00FF00;
+        --cursor-color: #00FF00;
+        --link-color: #00FF00;
+        --link-hover-color: #0F0;
+        --terminal-border: #33FF33;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Terminal window styles */
+    .terminal {
+        position: relative;
+        margin: 50px auto;
+        max-width: 800px;
+        background-color: #000;
+        padding: 20px;
+        border: 2px solid var(--terminal-border);
+        border-radius: 5px;
+        box-shadow: 0 0 10px var(--terminal-border);
+        overflow: hidden;
+    }
+
+    /* Terminal header */
+    .terminal-header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--terminal-border);
+    }
+
+    .terminal-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .terminal-button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-red { background-color: #FF605C; }
+    .btn-yellow { background-color: #FFBD44; }
+    .btn-green { background-color: #00CA4E; }
+
+    .terminal-title {
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--text-color);
+        font-weight: bold;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent }
+    }
+
+    .typewriter h1 {
+        overflow: hidden;
+        border-right: .15em solid var(--cursor-color);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation:
+            typing 3.5s steps(40, end),
+            blink .75s step-end infinite;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
+    /* CSS animations for links */
+    .fancy-link {
+        color: var(--link-color);
+        position: relative;
+        text-decoration: none;
+    }
+
+    .fancy-link::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        display: block;
+        margin-top: 5px;
+        right: 0;
+        background: var(--link-color);
+        transition: width .3s ease;
+    }
+
+    .fancy-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: var(--link-hover-color);
+    }
+
+    /* Table styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 0.9em;
+    }
+
+    th, td {
+        border: 1px solid var(--terminal-border);
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #111;
+    }
+
+    caption {
+        caption-side: top;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Hover effect on table rows */
+    tr:hover {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
+
+    /* Project description details */
+    details {
+        cursor: pointer;
+    }
+
+    details[open] summary::after {
+        content: "▲";
+        float: right;
+    }
+
+    details summary::after {
+        content: "▼";
+        float: right;
+    }
+
+    /* Image styles */
+    .project-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+        border: 1px solid var(--terminal-border);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .terminal {
+            margin: 20px;
+            padding: 15px;
+            width: auto;
+        }
+        .terminal-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .terminal-title {
+            margin: 10px 0 0 0;
+        }
+        th, td {
+            font-size: 0.8em;
+        }
+    }
+
+    /* Animation for project entries */
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Navigation link */
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button btn-red"></div>
+                <div class="terminal-button btn-yellow"></div>
+                <div class="terminal-button btn-green"></div>
+            </div>
+            <div class="terminal-title">~ Pau's Terminal ~</div>
+        </div>
+        <div class="typewriter">
+            <h1>&gt; root@pauserver:~$ ls projects</h1>
+        </div>
+        <div class="content">
+            <nav>
+                <code><a href="/">cd ..</a></code>
+            </nav>
+            <h2>DevOps - Project Index</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 33%;">Name</th>
+                        <th style="width: 55%;">Description</th>
+                        <th style="width: 12%;">Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="fade-in">
+                        <td>My First High API</td>
+                        <td>
+                            <details>
+                                <summary>Project Details</summary>
+                                FastAPI-based application "UNIVA UFO's API by Maestro PAU MATEU" offers functionalities including language translation between various pairs such as Catalan to Spanish and English to Spanish, data storage and retrieval using Redis, image file handling with upload, download, and deletion capabilities, and a custom calculation function related to the "Ley Don Bon". It's equipped with CORS middleware for cross-origin resource sharing and uses Jinja2Templates for web templating. The API also features error handling and uses Uvicorn for running the server.
+                                <br><br><strong>THIS WAS MY FIRST LONG-TERM PROJECT</strong>
+                            </details>
+                        </td>
+                        <td>PUBLIC</td>
+                    </tr>
+                    <tr class="fade-in" style="animation-delay: 0.5s;">
+                        <td><a href="https://github.com/YourGitHub/Gestion_clientes" class="fancy-link">API to Manage Leads</a></td>
+                        <td>
+                            This API analyzes leads and sends emails to notify the admin. It stages clients into a table, and you can download or manage this table with your leads. Check it out at <a href="http://yourwebsite.com/justdeleteme" class="fancy-link">justdeleteme.xyz</a>
+                        </td>
+                        <td>OPSEC</td>
+                    </tr>
+                    <tr class="fade-in" style="animation-delay: 1s;">
+                        <td>Spanish API Project for Degree</td>
+                        <td>
+                            I built and developed an API with FastAPI to connect two applications. Implemented API integration with <a href="https://console.cloud.google.com/marketplace/product/google/gmail.googleapis.com" target="_blank" class="fancy-link">Google API</a> for email handling. Integrated <a href="https://platform.openai.com/" target="_blank" class="fancy-link">OpenAI API</a> and <a href="https://cloud.google.com/ai/apis" target="_blank" class="fancy-link">Google Cloud AI APIs</a> to generate client needs. Built a robust PostgreSQL database, all deployed on an AWS EC2 Instance.
+                        </td>
+                        <td>PUBLIC</td>
+                    </tr>
+                    <!-- Added Funding Rate Project -->
+                    <tr class="fade-in" style="animation-delay: 1.5s;">
+                        <td><a href="https://github.com/YourGitHub/FundingRateBot" class="fancy-link">Funding Rate Arbitrage Bot</a></td>
+                        <td>
+                            <details>
+                                <summary>Project Details</summary>
+                                Developed a bot that exploits funding rate discrepancies across various cryptocurrency exchanges. It automatically opens positions to capture the funding payments, aiming for risk-neutral profits. Implemented using Python, integrated with exchange APIs like Binance and BitMEX, and deployed on cloud servers for continuous operation. Includes risk management strategies and real-time monitoring dashboards.
+                            </details>
+                        </td>
+                        <td>PRIVATE</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Interesting Projects Without Meaningful Results Yet:</h3>
+            <blockquote>
+                <p>
+                    Currently, I'm looking for a part-time job position to complement my current studies. I'm a self-taught person, and all I know is thanks to my constant practice and learning. I'm focused on learning about AWS, SysAdmin, and maybe Node.js.
+                </p>
+                <img src="https://orangematter.solarwinds.com/wp-content/uploads/2022/03/DevOps-lifecycle-capabilities-1024x621.png" alt="DevOps Lifecycle" class="project-image">
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Include JavaScript -->
+    <script>
+    // Typing effect for the terminal header
+    const typewriterText = document.querySelector('.typewriter h1').textContent;
+    let i = 0;
+    const speed = 50;
+    document.querySelector('.typewriter h1').textContent = '';
+
+    function typeWriter() {
+        if (i < typewriterText.length) {
+            document.querySelector('.typewriter h1').textContent += typewriterText.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            // Start fade-in animations after typing effect
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            fadeInElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.5}s`;
+                el.classList.add('visible');
+            });
+        }
+    }
+
+    window.onload = typeWriter;
+    </script>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pau Mateu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include CSS styles -->
+    <style>
+    /* Root variables */
+    :root {
+        --bg-color: #0D0D0D;
+        --text-color: #00FF00;
+        --cursor-color: #00FF00;
+        --link-color: #00FF00;
+        --link-hover-color: #0F0;
+        --terminal-border: #33FF33;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Hide scrollbars during loading */
+    }
+
+    /* Loader styles */
+    #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0D0D0D;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+    }
+
+    .loader-text p {
+        color: var(--text-color);
+        font-family: 'Courier New', monospace;
+        font-size: 1.5em;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    /* Terminal window styles */
+    .terminal {
+        position: relative;
+        margin: 50px auto;
+        max-width: 800px;
+        background-color: #000;
+        padding: 20px;
+        border: 2px solid var(--terminal-border);
+        border-radius: 5px;
+        box-shadow: 0 0 10px var(--terminal-border);
+        overflow: hidden;
+        display: none; /* Hide terminal until loading is complete */
+    }
+
+    /* Terminal header */
+    .terminal-header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--terminal-border);
+    }
+
+    .terminal-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .terminal-button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-red { background-color: #FF605C; }
+    .btn-yellow { background-color: #FFBD44; }
+    .btn-green { background-color: #00CA4E; }
+
+    .terminal-title {
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--text-color);
+        font-weight: bold;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent }
+    }
+
+    .typewriter h1 {
+        overflow: hidden;
+        border-right: .15em solid var(--cursor-color);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation:
+            typing 3.5s steps(40, end),
+            blink .75s step-end infinite;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
+    /* Headline styles */
+    h2, h3 {
+        color: var(--text-color);
+    }
+
+    /* Bold text */
+    b, strong {
+        color: var(--text-color);
+    }
+
+    /* Scrollbar styles */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--terminal-border);
+    }
+
+    /* CSS animations for links */
+    .fancy-link {
+        color: var(--link-color);
+        position: relative;
+        text-decoration: none;
+    }
+
+    .fancy-link::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        display: block;
+        margin-top: 5px;
+        right: 0;
+        background: var(--link-color);
+        transition: width .3s ease;
+    }
+
+    .fancy-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: var(--link-hover-color);
+    }
+
+    /* Additional styles */
+    pre {
+        color: var(--text-color);
+        overflow-x: auto;
+    }
+
+    code {
+        color: var(--text-color);
+    }
+
+    /* Button styles */
+    .button {
+        background-color: transparent;
+        color: var(--link-color);
+        border: 1px solid var(--link-color);
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 1em;
+        margin: 5px 5px 5px 0;
+        transition: background-color .3s, color .3s;
+        display: inline-block;
+    }
+
+    .button:hover {
+        background-color: var(--link-color);
+        color: #000;
+    }
+
+    /* Animation for PGP key */
+    .pgp-key {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out;
+    }
+
+    details[open] .pgp-key {
+        max-height: 500px;
+        transition: max-height 0.5s ease-in;
+    }
+
+    /* Program output styles */
+    .program-output {
+        display: none;
+        margin-top: 20px;
+        background-color: #111;
+        padding: 10px;
+        border: 1px solid var(--terminal-border);
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+
+    /* Q&A styles */
+    .qa-section {
+        margin-top: 20px;
+    }
+
+    .qa-item {
+        margin-bottom: 15px;
+    }
+
+    .qa-question {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .qa-answer {
+        margin-left: 20px;
+    }
+
+    /* Responsive table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid var(--terminal-border);
+        padding: 8px;
+        text-align: left;
+        font-size: 0.9em;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #111;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .terminal {
+            margin: 20px;
+            padding: 15px;
+            width: auto;
+        }
+        .terminal-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .terminal-title {
+            margin: 10px 0 0 0;
+        }
+        .button {
+            width: 100%;
+            margin: 5px 0;
+        }
+        pre {
+            font-size: 0.9em;
+        }
+        th, td {
+            font-size: 0.8em;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <div class="loader-text">
+            <p>Initializing terminal...</p>
+            <p id="loadingText"></p>
+        </div>
+    </div>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button btn-red"></div>
+                <div class="terminal-button btn-yellow"></div>
+                <div class="terminal-button btn-green"></div>
+            </div>
+            <div class="terminal-title">~ Pau's Terminal ~</div>
+        </div>
+        <div class="typewriter">
+            <h1>&gt; root@pauserver:~$ whoami</h1>
+        </div>
+        <div class="content">
+            <div class="content">
+                        <p>Welcome to my personal terminal! Feel free to explore dear Internet User</p>
+
+                        <h2>About Me</h2>
+                        <pre>
+                        [+] DevOps Engineer ∞                    [+] Open to Opportunities 💯
+                        [+] Backend Developer 💻 🐛              [+] Chess Player
+                        [+] Cloud Computing ☁️                   [+] Tech Enthusiast
+
+                        [+] Language Proficiency:
+                            Spanish - Native
+                            Catalan - Native
+                            English - C1
+                            German  - A2 [Learning 🕒]
+                        </pre>
+                        <p>
+                            Feel free to check out my <a href="/projects" class="fancy-link">projects</a>, <a href="/api" class="fancy-link">API</a>, and use my <a href="/tools" class="fancy-link">tools</a>.
+                        </p>
+                        <hr>
+                        <h2>Custom Microservices and Software</h2>
+                        <p>Click on the buttons below to "run" the programs:</p>
+                        <div class="button-container">
+                            <button class="button" onclick="runProgram('emailAutomation')">./email_automation</button>
+                            <button class="button" onclick="runProgram('taskScheduler')">./task_scheduler</button>
+                            <button class="button" onclick="runProgram('customChatbot')">./custom_chatbot</button>
+                            <button class="button" onclick="runProgram('seoOptimization')">./seo_optimization</button>
+                        </div>
+
+                        <div id="emailAutomation" class="program-output">
+                            <p><strong>Email Automation Program Output:</strong></p>
+                            <p>Automating your emails...</p>
+                            <!-- Add more details here -->
+                        </div>
+                        <div id="taskScheduler" class="program-output">
+                            <p><strong>Task Scheduler Program Output:</strong></p>
+                            <p>Scheduling your tasks...</p>
+                            <!-- Add more details here -->
+                        </div>
+                        <div id="customChatbot" class="program-output">
+                            <p><strong>Custom Chatbot Program Output:</strong></p>
+                            <p>Initializing chatbot...</p>
+                            <!-- Add more details here -->
+                        </div>
+                        <div id="seoOptimization" class="program-output">
+                            <p><strong>SEO Optimization Program Output:</strong></p>
+                            <p>Optimizing SEO...</p>
+                            <!-- Add more details here -->
+                        </div>
+                        <hr>
+                        <h2>Public PGP Key</h2>
+                        <details>
+                            <summary>Click to view my PGP key</summary>
+                            <div class="pgp-key">
+                                <pre>
+                                    -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+                                    xo0EZfgmFgEEANLDhzxgPMhctdwdoGnWmBgGJJjYC2yj7YB/Y8bxQshd+99qdYyv
+                                    bk9ivhf2BkGtpHCI5sWTFwKRwRsEgJGtSEXbnjlACyGoykFBhO66NKS0WZSF/+Yy
+                                    j58nKFXoR7I39l/yA7sqqY/Q+HNmjJzjnD7UQFaRykFX7CZKwmer9qWbABEBAAHN
+                                    P1BhdSAoRmVlbCBmcmVlIHRvIHVzZSBteSBQR1AgYXMgeW91dSBuZWVkKSA8cGF1
+                                    bWF0MTdAZ21haWwuY29tPsKtBBMBCgAXBQJl+CYWAhsvAwsJBwMVCggCHgECF4AA
+                                    CgkQj3MUCXtsRnEVLAQAvjWpHigt9/gvOcXkMaVR3hFLIu1dujAYkbhEnbNFlLOB
+                                    8prOHkpuAFoSyzuSv61GGYmv/6VPJXVG8rV50iP8Zitau5ogwYkYqFX1ltvIPxcw
+                                    cDyFmK+mBJuwDjY2dOV825ExtSJK05LUS7Cfs1FYaB/ELyGM9b8Z/zVLrdKOBpLO
+                                    jQRl+CYWAQQAsaIjEPqmarz24ToDI3kAOhgC76FHTzzWwzeCR0aSXbQs26RDap/u
+                                    IGIG6ulbhbiLTUchWcQcf0fn3yZ/kk4rzq9vxaiL0u8hOKltWMcT1dAwET82EWwy
+                                    4f08BVRbBe6a5yFR3QmKq2qD06ubwF309Ju6SCT9E5MbnwqBWNQhelEAEQEAAcLA
+                                    gwQYAQoADwUCZfgmFgUJDwmcAAIbLgCoCRCPcxQJe2xGcZ0gBBkBCgAGBQJl+CYW
+                                    AAoJEBuf5PdinWnDucAD/2NeWvLrATNIPROG1XfRB0qF3HUpfhuljXL2mcX3b4cn
+                                    QnkQrOsnIlOxACzk1W8lIj6MZ79K5UcSNxlGy+Txjcq0lSYvz4LYW9jkouRVvCHZ
+                                    EjB8KVT7EFeLwSJKux2eMu50G1YbjqXo79r+j1lKytcLFk9Geo5juWUTTxlpclR4
+                                    hHgD/0wU5uKdiOJKM7/X6IsW4jUkX29vN6xgmpHe0KR9y/cLuXvE9T5PeqNIiAKj
+                                    9IT5wwmX4HJfFCDX4CxUn531OMNMCTHh45tGUJtpPsJ+j9i2VhEecfpJfKZoQj/3
+                                    Y2U1kHEdSZa4tgJ7Tofq/QmAQ6pH0yO8J7Ganv8fj1Sj5NkAzo0EZfgmFgEEAOxz
+                                    Ptby8Zi+xJQ47ps42UST0DW6E/JCkIq6a4KqaSDW7ev3I/SJF+Ea3Z5wF5pgxrSp
+                                    woHkYaa35IAlZUAYm27oc3/VdDY/pnY34FjRo27PiZhOZvSBkwg0X15dC7Umf/5k
+                                    jQT7e/cyw1D49A9pXoNVdvc0eJlS7Q5RRz57POelABEBAAHCwIMEGAEKAA8FAmX4
+                                    JhYFCQ8JnAACGy4AqAkQj3MUCXtsRnGdIAQZAQoABgUCZfgmFgAKCRDBdVIoozC7
+                                    0L5cBACn6i1ZIDezIAuCrPY/vOT2bNgfe9VcRHelJceOB8APKSpxJc8Gsa4PK35E
+                                    ES2EvMPWQuU2350lPtXI2h8lQ+AocZa/AeHiwrwMO+EoDFMuWWx9Qa/IcDwYkyAw
+                                    OCrDRfhckX2d1NczqHM8E3gIpXHLTVcpX2rqY4/qtrrpJ4vA1ZALA/9lWHIG+7MB
+                                    Ulw0IRk44ITUSZknO2c2e/vAeytOJHMWaEXGE7IFLnPCODkMfw2aBZnYtS3DlvTT
+                                    xWEPXhYP5CSzO5h8YCMq83brX45Vtcc9qTGdqxDdwYuZfM7zJ31h4tq3z0lzBycC
+                                    aPXI0ln3K8asOIrP3azSbOxS3i5UucjZAQ==
+                                    =DKxK
+                                    -----END PGP PUBLIC KEY BLOCK-----
+                                                           
+                                </pre>
+                            </div>
+                        </details>
+                        <hr>
+                        <h2>Contacts</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Contact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Discord</td>
+                                    <td>elsteve1947</td>
+                                </tr>
+                                <tr>
+                                    <td>GitHub</td>
+                                    <td><a href="https://github.com/ElStevenn" class="fancy-link">@ElStevenn</a></td>
+                                </tr>
+                                <tr>
+                                    <td>GitLab</td>
+                                    <td><a href="https://gitlab.com/paumat17" class="fancy-link">@paumat17</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><a href="mailto:paumat17@gmail.com" class="fancy-link">paumat17@gmail.com</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <h2>Support Me</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PayPal</td>
+                                    <td><a href="https://paypal.me/asstevenn" class="fancy-link">@asstevenn</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Bitcoin</td>
+                                    <td><details>Your Bitcoin Wallet Address</details></td>
+                                </tr>
+                                <tr>
+                                    <td>Buy Me a Coffee</td>
+                                    <td><details><a href="https://www.buymeacoffee.com/YourProfile" class="fancy-link">Buy me a coffee</a></details></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <h2>Q&A</h2>
+                        <div class="qa-section">
+                            <div class="qa-item">
+                                <p class="qa-question">Q: How many skills do you have?</p>
+                                <p class="qa-answer">I have a wide range of skills, from server management and database administration to Python and JavaScript programming.</p>
+                            </div>
+                            <div class="qa-item">
+                                <p class="qa-question">Q: Who is your inspiration?</p>
+                                <p class="qa-answer">I am inspired by innovators who challenge the status quo and strive to make technology accessible and efficient.</p>
+                            </div>
+                            <div class="qa-item">
+                                <p class="qa-question">Q: Why do you prioritize security and privacy?</p>
+                                <p class="qa-answer">"If you think privacy is unimportant because you have nothing to hide, you might as well say free speech is unimportant because you have nothing useful to say." <br><b>- Edward Snowden</b></p>
+                            </div>
+                            <div class="qa-item">
+                                <p class="qa-question">Q: What is your opinion about cryptocurrency?</p>
+                                <p class="qa-answer">Cryptocurrency is an exciting development in the financial world. I appreciate its potential for decentralization and use it for various legitimate purposes.</p>
+                            </div>
+                            <div class="qa-item">
+                                <p class="qa-question">Q: Do you have my IP now?</p>
+                                <p class="qa-answer">I respect your privacy and do not track or store IP addresses unnecessarily. Feel free to use TOR or any privacy tools when visiting my website.</p>
+                            </div>
+                            <div class="qa-item">
+                                <p class="qa-question">Q: What happened to your social media? It's all gone!</p>
+                                <p class="qa-answer">Social media is the cigarette of the 21st century. I believe in meaningful interactions and have chosen to minimize my presence on traditional platforms.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <h2>1337 Friends (づ￣ ³￣)づ</h2>
+                        <p>
+                            <a class="fancy-link" href="https://github.com/rreal-dev">Raúl </a> |
+                            <a class="fancy-link" href="https://www.instagram.com/tonirss_/">Toni Rams</a> |
+                            <a class="fancy-link" href="https://venroy.moe/">Venroy</a> |
+                            <a class="fancy-link" href="https://x.com/FilipNoSkill">Filip</a>
+                        </p>
+                        <p>Do you want to be added to my <b>1337 friends list ╮( ˘ ³ ˘ )╭?</b></p>
+                        <ul>
+                            <li>1. Be a positive and supportive person ( ¨̮ )</li>
+                            <li>2. Share similar interests</li>
+                            <li>3. Be my friend :3</li>
+                        </ul>
+                    </div>
+                </div>
+            <script>
+            // Loader animation
+            const loadingMessages = [
+                'Booting up...',
+                'Loading modules...',
+                'Establishing connection...',
+                'Access granted.'
+            ];
+            let loadIndex = 0;
+            const loadingText = document.getElementById('loadingText');
+
+            function showLoadingMessage() {
+                if (loadIndex < loadingMessages.length) {
+                    loadingText.textContent = loadingMessages[loadIndex];
+                    loadIndex++;
+                    setTimeout(showLoadingMessage, 1000);
+                } else {
+                    // Hide loader and show content
+                    document.getElementById('loader').style.display = 'none';
+                    document.querySelector('.terminal').style.display = 'block';
+                    document.body.style.overflow = 'auto'; // Re-enable scroll
+                    typeWriter();
+                }
+            }
+
+            window.onload = function() {
+                document.querySelector('.terminal').style.display = 'none';
+                showLoadingMessage();
+            };
+
+            // Typing effect for the terminal header
+            const typewriterText = document.querySelector('.typewriter h1').textContent;
+            let i = 0;
+            const speed = 50;
+            document.querySelector('.typewriter h1').textContent = '';
+
+            function typeWriter() {
+                if (i < typewriterText.length) {
+                    document.querySelector('.typewriter h1').textContent += typewriterText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+
+            // Function to simulate running programs
+            function runProgram(programId) {
+                // Hide all program outputs
+                const outputs = document.querySelectorAll('.program-output');
+                outputs.forEach(output => output.style.display = 'none');
+
+                // Show the selected program output
+                const programOutput = document.getElementById(programId);
+                if (programOutput) {
+                    programOutput.style.display = 'block';
+                }
+            }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

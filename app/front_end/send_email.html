@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pau Mateu - Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include CSS styles -->
+    <style>
+    /* Root variables */
+    :root {
+        --bg-color: #0D0D0D;
+        --text-color: #00FF00;
+        --cursor-color: #00FF00;
+        --link-color: #00FF00;
+        --link-hover-color: #0F0;
+        --terminal-border: #33FF33;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Terminal window styles */
+    .terminal {
+        position: relative;
+        margin: 50px auto;
+        max-width: 800px;
+        background-color: #000;
+        padding: 20px;
+        border: 2px solid var(--terminal-border);
+        border-radius: 5px;
+        box-shadow: 0 0 10px var(--terminal-border);
+        overflow: hidden;
+    }
+
+    /* Terminal header */
+    .terminal-header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--terminal-border);
+    }
+
+    .terminal-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .terminal-button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-red { background-color: #FF605C; }
+    .btn-yellow { background-color: #FFBD44; }
+    .btn-green { background-color: #00CA4E; }
+
+    .terminal-title {
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--text-color);
+        font-weight: bold;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent }
+    }
+
+    .typewriter h1 {
+        overflow: hidden;
+        border-right: .15em solid var(--cursor-color);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation:
+            typing 3.5s steps(40, end),
+            blink .75s step-end infinite;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
+    /* Form styles */
+    .message-form {
+        margin-top: 20px;
+    }
+
+    .message-form h2 {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        background: transparent;
+        border: 1px solid var(--terminal-border);
+        padding: 10px;
+        color: var(--text-color);
+        font-family: inherit;
+        resize: none;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--link-hover-color);
+        box-shadow: 0 0 5px var(--link-hover-color);
+    }
+
+    .form-group label {
+        position: absolute;
+        top: -20px;
+        left: 10px;
+        font-size: 0.9em;
+        color: var(--link-color);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #555;
+    }
+
+    /* Custom file input */
+    .custom-file-input {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .custom-file-input input[type="file"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .custom-file-input .file-label {
+        display: block;
+        background-color: transparent;
+        border: 1px solid var(--terminal-border);
+        padding: 10px;
+        color: var(--text-color);
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .custom-file-input .file-label:hover {
+        background-color: var(--link-color);
+        color: #000;
+        border-color: var(--link-hover-color);
+    }
+
+    /* Send button */
+    .send-btn {
+        position: relative;
+        overflow: hidden;
+        background-color: transparent;
+        color: var(--link-color);
+        border: 1px solid var(--link-color);
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color .3s, color .3s;
+        display: inline-block;
+    }
+
+    .send-btn:hover {
+        background-color: var(--link-color);
+        color: #000;
+    }
+
+    .send-btn:focus {
+        outline: none;
+    }
+
+    /* Ripple effect */
+    .send-btn::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(0, 255, 0, 0.5);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        opacity: 0;
+    }
+
+    .send-btn:active::after {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+        transition: width 0.5s ease-out, height 0.5s ease-out, opacity 1s ease-out;
+    }
+
+    /* Success message */
+    .success-message {
+        display: none;
+        margin-top: 20px;
+        color: #0F0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Loading animation */
+    .loader {
+        border: 4px solid #111;
+        border-top: 4px solid var(--link-color);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+        display: none;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .terminal {
+            margin: 20px;
+            padding: 15px;
+            width: auto;
+        }
+        .terminal-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .terminal-title {
+            margin: 10px 0 0 0;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button btn-red"></div>
+                <div class="terminal-button btn-yellow"></div>
+                <div class="terminal-button btn-green"></div>
+            </div>
+            <div class="terminal-title">~ Message Terminal ~</div>
+        </div>
+        <div class="typewriter">
+            <h1>&gt; root@pauserver:~$ ./contact_pau</h1>
+        </div>
+        <div class="content">
+            <div class="message-form">
+                <h2>Send a Message to Pau</h2>
+                <form id="messageForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="attachment">Attach Files</label>
+                        <div class="custom-file-input">
+                            <input type="file" id="attachment" name="attachment" multiple>
+                            <span class="file-label">Choose Files</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="send-btn">Send Message</button>
+                </form>
+                <div class="loader" id="loader"></div>
+                <p class="success-message" id="successMessage">Your message has been sent successfully!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include JavaScript -->
+    <script>
+    // Typing effect for the terminal header
+    const typewriterText = document.querySelector('.typewriter h1').textContent;
+    let i = 0;
+    const speed = 50;
+    document.querySelector('.typewriter h1').textContent = '';
+
+    function typeWriter() {
+        if (i < typewriterText.length) {
+            document.querySelector('.typewriter h1').textContent += typewriterText.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    window.onload = typeWriter;
+
+    // Custom file input behavior
+    const fileInput = document.getElementById('attachment');
+    const fileLabel = document.querySelector('.file-label');
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length > 1) {
+            fileLabel.textContent = fileInput.files.length + ' files selected';
+        } else if (fileInput.files.length === 1) {
+            fileLabel.textContent = fileInput.files[0].name;
+        } else {
+            fileLabel.textContent = 'Choose Files';
+        }
+    });
+
+    // Form submission with animation
+    const messageForm = document.getElementById('messageForm');
+    const loader = document.getElementById('loader');
+    const successMessage = document.getElementById('successMessage');
+
+    messageForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Show loading animation
+        loader.style.display = 'block';
+
+        // Simulate form submission delay
+        setTimeout(() => {
+            loader.style.display = 'none';
+            successMessage.style.display = 'block';
+
+            // Reset the form
+            messageForm.reset();
+            fileLabel.textContent = 'Choose Files';
+
+            // Hide success message after a while
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }, 2000);
+
+        // Here you would typically handle the form submission, e.g., using fetch or AJAX
+        // to send the data to your server for processing.
+    });
+    </script>
+</body>
+</html>
