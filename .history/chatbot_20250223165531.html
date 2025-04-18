@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Chatbot - Your AI Assistant</title>
+  <meta name="description" content="Enhance customer engagement with a personalized, intelligent chatbot available 24/7.">
+  <meta name="keywords" content="Custom Chatbot, AI Assistant, Customer Engagement, Multi-Language, Analytics">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --bg-color: #0D1117;
+      --text-color: #C9D1D9;
+      --primary-color: #58A6FF;
+      --highlight-color: #64FFDA;
+      --card-bg: #161B22;
+      --secondary-color: #F78166;
+      --transition-speed: 0.3s;
+      --font-body: 'Open Sans', sans-serif;
+      --font-heading: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      margin: 0 0 20px;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    a:hover {
+      color: var(--highlight-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--highlight-color);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .chat-window {
+      width: 300px;
+      height: 200px;
+      background: #222;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .message {
+      margin: 5px 0;
+      padding: 5px 10px;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      max-width: 80%;
+    }
+
+    .message.user {
+      background: var(--primary-color);
+      align-self: flex-end;
+      animation-delay: 0s;
+    }
+
+    .message.bot {
+      background: var(--secondary-color);
+      align-self: flex-start;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .cta-btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .secondary-cta {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .secondary-cta:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 60px 0;
+    }
+
+    .features h2 {
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      transition: transform var(--transition-speed);
+    }
+
+    .feature-card:hover i {
+      transform: scale(1.1);
+    }
+
+    /* Deep Dive Section */
+    .deep-dive {
+      display: flex;
+      align-items: center;
+      padding: 60px 0;
+      gap: 40px;
+    }
+
+    .deep-dive-text {
+      flex: 1;
+    }
+
+    .deep-dive-visual {
+      flex: 1;
+      text-align: center;
+    }
+
+    /* Interactive Demo Section */
+    .chat-demo {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .chat-window-demo {
+      width: 400px;
+      height: 300px;
+      background: #222;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 0 auto 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message-demo {
+      padding: 10px;
+      border-radius: 5px;
+      max-width: 80%;
+    }
+
+    .message-demo.user {
+      background: var(--primary-color);
+      align-self: flex-end;
+    }
+
+    .message-demo.bot {
+      background: var(--secondary-color);
+      align-self: flex-start;
+    }
+
+    .input-area {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .input-area input {
+      width: 300px;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      background: #333;
+      color: var(--text-color);
+    }
+
+    .input-area button {
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background var(--transition-speed);
+    }
+
+    .input-area button:hover {
+      background: var(--highlight-color);
+    }
+
+    /* Integration Section */
+    .integration {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .integration h2 {
+      margin-bottom: 40px;
+    }
+
+    .integration-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .mockup {
+      width: 300px;
+      height: 200px;
+      background: #333;
+      border-radius: 10px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-bubble {
+      background: var(--primary-color);
+      padding: 10px;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    .chat-widget {
+      background: var(--primary-color);
+      padding: 10px;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Analytics Section */
+    .analytics {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .dashboard-mockup {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .metrics {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .metric {
+      background: #222;
+      padding: 15px;
+      border-radius: 4px;
+      min-width: 150px;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .testimonial-item {
+      display: none;
+      padding: 20px;
+    }
+
+    .testimonial-item.active {
+      display: block;
+    }
+
+    .testimonial-item p {
+      font-style: italic;
+      color: var(--highlight-color);
+      font-size: 1.2rem;
+    }
+
+    /* Final CTA Section */
+    .final-cta {
+      padding: 60px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+    }
+
+    .final-cta h2 {
+      color: var(--highlight-color);
+      font-size: 2.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0B0E13;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--card-bg);
+    }
+
+    .footer-links a {
+      margin: 0 15px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .deep-dive {
+        flex-direction: column;
+      }
+
+      .integration-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mockup {
+        margin-bottom: 20px;
+      }
+
+      .chat-window-demo {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .input-area input {
+        width: 70%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero reveal">
+    <div class="container">
+      <h1>Custom Chatbot: Your AI Assistant, 24/7</h1>
+      <p>Engage customers around the clock with a personalized, intelligent chatbot.</p>
+      <div class="chat-window">
+        <div class="message user">Hi there!</div>
+        <div class="message bot">Hello! How can I assist you today?</div>
+        <div class="message user">I have a question about your services.</div>
+        <div class="message bot">Sure, I'd be happy to help. What would you like to know?</div>
+      </div>
+      <div class="cta-buttons">
+        <button class="cta-btn" onclick="document.querySelector('.chat-demo').scrollIntoView({behavior: 'smooth'})">Try the Live Demo</button>
+        <button class="cta-btn secondary-cta" onclick="document.querySelector('.features').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features reveal">
+    <div class="container">
+      <h2>Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-headset"></i>
+          <h3>24/7 Customer Support</h3>
+          <p>Provide instant responses and reduce wait times.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-user"></i>
+          <h3>Personalized Responses</h3>
+          <p>Tailor interactions using user data and history.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-code"></i>
+          <h3>Website & App Integration</h3>
+          <p>Seamlessly embed on any platform.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-globe"></i>
+          <h3>Multi-Language Support</h3>
+          <p>Detect and respond in the user's language.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>AI-Powered Analytics</h3>
+          <p>Gain insights into queries and engagement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive: Personalization & AI -->
+  <section class="deep-dive reveal">
+    <div class="container">
+      <div class="deep-dive-text">
+        <h2>Personalization & AI</h2>
+        <p>Our chatbot adapts to each user by retrieving user data and conversation history for tailored responses.</p>
+        <p>Powered by advanced NLP and Machine Learning models, it processes queries securely in real-time, ensuring data privacy.</p>
+      </div>
+      <div class="deep-dive-visual">
+        <!-- Placeholder for dynamic illustration -->
+        <div style="width: 100%; height: 300px; background: #333; border-radius: 10px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo Section -->
+  <section class="chat-demo reveal">
+    <div class="container">
+      <h2>Try Our Chatbot</h2>
+      <div class="chat-window-demo">
+        <div class="messages"></div>
+      </div>
+      <div class="input-area">
+        <input type="text" placeholder="Type your message...'">
+        <button>Send</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile & Desktop Integration Section -->
+  <section class="integration reveal">
+    <div class="container">
+      <h2>Mobile & Desktop Integration</h2>
+      <div class="integration-grid">
+        <div class="mockup mobile">
+          <div class="chat-bubble">Chat with us!</div>
+        </div>
+        <div class="mockup desktop">
+          <div class="chat-widget">Chatbot Widget</div>
+        </div>
+      </div>
+      <p style="margin-top: 20px;">Embed easily with our API endpoints or SDK.</p>
+    </div>
+  </section>
+
+  <!-- Analytics & Dashboard Section -->
+  <section class="analytics reveal">
+    <div class="container">
+      <h2>Analytics & Dashboard</h2>
+      <div class="dashboard-mockup">
+        <h3>Chatbot Analytics Dashboard</h3>
+        <p>Monitor conversation volume, response times, and user satisfaction.</p>
+        <div class="metrics">
+          <div class="metric">
+            <i class="fas fa-comments"></i>
+            <p>Conversations: 1,234</p>
+          </div>
+          <div class="metric">
+            <i class="fas fa-clock"></i>
+            <p>Avg. Response Time: 2.3s</p>
+          </div>
+          <div class="metric">
+            <i class="fas fa-smile"></i>
+            <p>Satisfaction: 4.8/5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials reveal">
+    <div class="container">
+      <h2>What Our Clients Say</h2>
+      <div class="testimonial-item active">
+        <p>"The custom chatbot reduced our support costs by 30%!" - Company A</p>
+      </div>
+      <div class="testimonial-item">
+        <p>"Our customers love the personalized interactions." - Company B</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta reveal">
+    <div class="container">
+      <h2>Ready to Deploy Your AI Assistant?</h2>
+      <div class="cta-buttons">
+        <button class="cta-btn">Get Started</button>
+        <button class="cta-btn secondary-cta">Request a Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">API Documentation</a> |
+        <a href="#">Setup Guide</a> |
+        <a href="mailto:contact@example.com">Contact Us</a>
+      </div>
+      <p>All conversations are processed securely in real-time. No data is stored without permission.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll Reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => observer.observe(el));
+
+    // Chat Demo Functionality
+    function appendMessage(text, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message-demo ${sender}`;
+      messageDiv.textContent = text;
+      document.querySelector('.messages').appendChild(messageDiv);
+      const chatWindow = document.querySelector('.chat-window-demo');
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const msg = message.toLowerCase();
+      if (msg.includes('hello')) {
+        return 'Hi there! How can I help?';
+      } else if (msg.includes('services')) {
+        return 'We offer custom chatbot solutions, email automation, and more.';
+      } else {
+        return "I'm not sure how to respond to that. Try asking about our services.";
+      }
+    }
+
+    document.querySelector('.input-area button').addEventListener('click', () => {
+      const input = document.querySelector('.input-area input');
+      const message = input.value.trim();
+      if (message) {
+        appendMessage(message, 'user');
+        input.value = '';
+        setTimeout(() => {
+          const response = getBotResponse(message);
+          appendMessage(response, 'bot');
+        }, 500);
+      }
+    });
+
+    document.querySelector('.input-area input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        document.querySelector('.input-area button').click();
+      }
+    });
+
+    // Testimonial Carousel
+    const testimonials = document.querySelectorAll('.testimonial-item');
+    let currentTestimonial = 0;
+    function showNextTestimonial() {
+      testimonials[currentTestimonial].classList.remove('active');
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      testimonials[currentTestimonial].classList.add('active');
+    }
+    setInterval(showNextTestimonial, 5000);
+  </script>
+</body>
+</html>

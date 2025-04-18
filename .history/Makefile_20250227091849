@@ -1,0 +1,6 @@
+.PHONY: up down rebuild logs
+
+
+up:
+	@docker build -t paus-nginx .
+	@docker run -d -p 80:80

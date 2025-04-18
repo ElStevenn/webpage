@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Automation - Pau Mateu</title>
+  <meta name="description" content="Discover Email Automation: streamline workflows, categorize emails, and boost productivity with intelligent automation.">
+  <meta name="keywords" content="Email Automation, DevOps, Workflow, Productivity, Microservices, Security">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Base Styles (Inherited from your site) */
+    :root {
+      --bg-color: #0D1117;
+      --text-color: #C9D1D9;
+      --primary-color: #58A6FF;
+      --highlight-color: #64FFDA;
+      --card-bg: #161B22;
+      --secondary-color: #F78166;
+      --transition-speed: 0.3s;
+      --font-body: 'Open Sans', sans-serif;
+      --font-heading: 'Montserrat', sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2 {
+      font-family: var(--font-heading);
+      margin: 0 0 20px;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+    a:hover {
+      color: var(--highlight-color);
+    }
+    .cta-btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background var(--transition-speed), transform var(--transition-speed);
+    }
+    .cta-btn:hover {
+      background: var(--highlight-color);
+      transform: scale(1.05);
+    }
+    .secondary-cta {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+    .secondary-cta:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cpath d="M0 0 L50 50 L100 0" fill="none" stroke="%2358A6FF" stroke-width="0.5" opacity="0.1"/%3E%3C/svg%3E') repeat;
+      animation: circuitFlow 20s linear infinite;
+    }
+    @keyframes circuitFlow {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--highlight-color);
+      animation: fadeInDown 1s ease-out;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin: 20px 0;
+    }
+    .hero .animation-container {
+      margin: 20px 0;
+    }
+    .email-flow {
+      width: 300px;
+      height: 100px;
+      position: relative;
+    }
+    .email-icon {
+      position: absolute;
+      font-size: 2rem;
+      color: var(--primary-color);
+      animation: sortEmails 3s infinite ease-in-out;
+    }
+    @keyframes sortEmails {
+      0% { left: 0; top: 0; }
+      50% { left: 150px; top: 50px; opacity: 0.5; }
+      100% { left: 300px; top: 0; opacity: 1; }
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      display: flex;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 40px;
+      background: var(--card-bg);
+      border-radius: 10px;
+    }
+    .how-it-works .visual, .how-it-works .text {
+      flex: 1;
+    }
+    .flowchart {
+      position: relative;
+      height: 300px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .flow-step {
+      text-align: center;
+      color: var(--highlight-color);
+    }
+    .flow-step i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    .how-it-works .text ul {
+      list-style: none;
+      padding: 0;
+    }
+    .how-it-works .text li {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .how-it-works .text i {
+      color: var(--highlight-color);
+    }
+
+    /* Features Section */
+    .features {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .feature-card i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    /* Live Demo Section */
+    .demo {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 40px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .demo-inbox {
+      background: #22272E;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .demo-email {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #2A2F3B;
+    }
+    .demo-buttons button {
+      padding: 5px 10px;
+      margin: 0 5px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .demo-buttons button:hover {
+      background: var(--highlight-color);
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .testimonial-item {
+      display: none;
+      padding: 20px;
+    }
+    .testimonial-item.active {
+      display: block;
+    }
+    .testimonial-item p {
+      font-style: italic;
+      color: var(--highlight-color);
+    }
+
+    /* Final CTA Section */
+    .final-cta {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+    }
+    .final-cta h2 {
+      font-size: 2.5rem;
+      color: var(--highlight-color);
+    }
+    .final-cta .disclaimer {
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0B0E13;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--card-bg);
+    }
+    .footer-links a {
+      margin: 0 15px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.2rem; }
+      .how-it-works { flex-direction: column; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Revolutionize Your Email Workflow</h1>
+    <p>Automate, categorize, and prioritize with precision.</p>
+    <div class="animation-container">
+      <div class="email-flow">
+        <i class="fas fa-envelope email-icon"></i>
+      </div>
+    </div>
+    <div>
+      <button class="cta-btn">Try It Now</button>
+      <button class="cta-btn secondary-cta" onclick="document.querySelector('.how-it-works').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="visual">
+      <div class="flowchart">
+        <div class="flow-step"><i class="fas fa-envelope"></i><p>Incoming Emails</p></div>
+        <i class="fas fa-arrow-right flow-arrow"></i>
+        <div class="flow-step"><i class="fas fa-filter"></i><p>Categorization</p></div>
+        <i class="fas fa-arrow-right flow-arrow"></i>
+        <div class="flow-step"><i class="fas fa-reply"></i><p>Automated Replies</p></div>
+        <i class="fas fa-arrow-right flow-arrow"></i>
+        <div class="flow-step"><i class="fas fa-inbox"></i><p>Organized Inbox</p></div>
+      </div>
+    </div>
+    <div class="text">
+      <h2>How It Works</h2>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Auto-Sorting: Instantly prioritize and tag emails.</li>
+        <li><i class="fas fa-bolt"></i> Smart Responses: Set rules for auto-reply.</li>
+        <li><i class="fas fa-link"></i> Seamless Integration: Works with any provider (Gmail, Outlook, IMAP, etc.).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-folder"></i>
+        <h3>Categorization Engine</h3>
+        <p>Sorts emails based on content, sender, and urgency.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-bolt"></i>
+        <h3>Auto-Reply System</h3>
+        <p>Generates instant responses based on predefined rules.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Analytics Dashboard</h3>
+        <p>See email trends, bottlenecks, and efficiency reports.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-sync"></i>
+        <h3>Seamless Syncing</h3>
+        <p>Works across all major email platforms.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-cogs"></i>
+        <h3>Custom Rules & Workflows</h3>
+        <p>Set triggers for actions (e.g., move invoices to accounting).</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-lock"></i>
+        <h3>Security & Privacy Focused</h3>
+        <p>No data stored—processed in real-time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Demo Section -->
+  <section class="demo">
+    <h2>Try It Out</h2>
+    <div class="demo-inbox">
+      <div class="demo-email" id="demoEmail">
+        <span>Subject: Urgent Invoice</span>
+        <div class="demo-buttons">
+          <button onclick="markImportant()">Mark Important</button>
+          <button onclick="autoReply()">Auto-Reply</button>
+          <button onclick="categorize()">Categorize</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <h2>What People Say</h2>
+    <div class="testimonial-item active">
+      <p>“Saved me hours per week sorting emails.” – Tech Startup Founder</p>
+    </div>
+    <div class="testimonial-item">
+      <p>“Now I only focus on emails that matter.” – Project Manager</p>
+    </div>
+    <div class="testimonial-item">
+      <p>“Fully automated my support inbox. Game changer.” – E-Commerce Owner</p>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta">
+    <h2>Start Automating Your Emails Now</h2>
+    <div>
+      <button class="cta-btn">Try for Free</button>
+      <button class="cta-btn secondary-cta">Read Documentation</button>
+    </div>
+    <p class="disclaimer">100% secure. Your emails are processed in real-time—no data stored.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">API Documentation</a>
+      <a href="#">Setup Guide</a>
+      <a href="mailto:paumat17@gmail.com">Contact for Custom Solutions</a>
+    </div>
+    <p>© 2025 Pau Mateu. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Testimonial Carousel
+    const testimonials = document.querySelectorAll('.testimonial-item');
+    let currentTestimonial = 0;
+    function showNextTestimonial() {
+      testimonials[currentTestimonial].classList.remove('active');
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      testimonials[currentTestimonial].classList.add('active');
+    }
+    setInterval(showNextTestimonial, 5000);
+
+    // Live Demo Interactions
+    const demoEmail = document.getElementById('demoEmail');
+    function markImportant() {
+      demoEmail.style.background = '#2A2F3B';
+      demoEmail.innerHTML += '<i class="fas fa-star" style="color: gold; margin-left: 10px;"></i>';
+    }
+    function autoReply() {
+      demoEmail.innerHTML += '<p style="color: var(--highlight-color);">Auto-Reply Sent: "Thanks, we’ll review this soon!"</p>';
+    }
+    function categorize() {
+      demoEmail.style.borderLeft = '4px solid var(--primary-color)';
+      demoEmail.innerHTML += '<span style="margin-left: 10px; color: var(--primary-color);">Moved to Invoices</span>';
+    }
+  </script>
+</body>
+</html>

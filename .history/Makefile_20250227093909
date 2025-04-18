@@ -1,0 +1,27 @@
+.PHONY: up down rebuild logs push
+
+REPO=ghcr.io/elstevenn/webpage
+TAG=latest
+
+up:
+	@docker build -t paus-nginx .
+	@docker run -d --rm -p 8080:80 --name paus_webpage paus-nginx
+	@echo "Pau's Application is running successfully"
+
+down:
+	@docker stop paus_webpage || true
+	@docker rm paus_webpage || true
+	@docker image rm paus-nginx || true
+
+rebuild:
+	@make down
+	@make up
+
+logs:
+	@docker logs -f paus_webpage
+
+push:
+	@docker tag paus-nginx $(REPO):$(TAG)
+	@echo "Pushing to GitHub Container Registry..."
+	@docker push $(REPO):$(TAG)
+	@echo "Container pushed successfully to $(REPO):$(TAG)"

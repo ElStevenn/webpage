@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Scheduler - Automate Your Operations</title>
+  <meta name="description" content="Automate your day-to-day operations with precision and ease. Manage tasks on-the-go with our mobile app.">
+  <meta name="keywords" content="Task Scheduler, Automation, Microservices, Alerts, Mobile App">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --bg-color: #0D1117;
+      --text-color: #C9D1D9;
+      --primary-color: #58A6FF;
+      --highlight-color: #64FFDA;
+      --card-bg: #161B22;
+      --secondary-color: #F78166;
+      --transition-speed: 0.3s;
+      --font-body: 'Open Sans', sans-serif;
+      --font-heading: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      margin: 0 0 20px;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    a:hover {
+      color: var(--highlight-color);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cpath d="M0 0 L50 50 L100 0" fill="none" stroke="%2358A6FF" stroke-width="0.5" opacity="0.1"/%3E%3C/svg%3E') repeat;
+      animation: circuitFlow 30s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes circuitFlow {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--highlight-color);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .animated-visual {
+      margin: 20px 0;
+    }
+
+    .task-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      animation: pulse 2s infinite;
+    }
+
+    .task-icon:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .task-icon:nth-child(3) {
+      animation-delay: 1s;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .cta-btn {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px var(--highlight-color);
+    }
+
+    .secondary-cta {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .secondary-cta:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 60px 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+      margin: 10px 0;
+    }
+
+    /* Mobile App Section */
+    .mobile-app {
+      display: flex;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .phone-mockup {
+      flex: 1;
+      text-align: center;
+    }
+
+    .phone-mockup img {
+      max-width: 300px;
+      border-radius: 10px;
+    }
+
+    .mobile-app-text {
+      flex: 1;
+    }
+
+    .mobile-app-text h2 {
+      color: var(--highlight-color);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .process-flow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .process-step {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .process-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .process-step i {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .process-arrow {
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+    }
+
+    /* Live Demo Section */
+    .live-demo {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .task-list {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #2A2F3B;
+    }
+
+    .add-task-btn {
+      margin-top: 20px;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .testimonial-item {
+      display: none;
+      padding: 20px;
+    }
+
+    .testimonial-item.active {
+      display: block;
+    }
+
+    .testimonial-item p {
+      font-style: italic;
+      color: var(--highlight-color);
+    }
+
+    /* Final CTA Section */
+    .final-cta {
+      padding: 60px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+    }
+
+    .final-cta h2 {
+      color: var(--highlight-color);
+    }
+
+    .final-cta .disclaimer {
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0B0E13;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--card-bg);
+    }
+
+    .footer-links a {
+      margin: 0 15px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-app {
+        flex-direction: column;
+      }
+
+      .phone-mockup {
+        margin-bottom: 20px;
+      }
+
+      .process-flow {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero reveal">
+    <div class="container">
+      <h1>Task Scheduler: Automate Your Day-to-Day Operations</h1>
+      <p>Stay on top of repetitive tasks and never miss a deadline again.</p>
+      <div class="animated-visual">
+        <i class="fas fa-tasks task-icon"></i>
+        <i class="fas fa-spinner task-icon"></i>
+        <i class="fas fa-check task-icon"></i>
+      </div>
+      <div class="cta-buttons">
+        <button class="cta-btn">Try It Now</button>
+        <button class="cta-btn secondary-cta" onclick="document.querySelector('.features').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features reveal">
+    <div class="container">
+      <h2>Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-calendar"></i>
+          <h3>Scheduling & Automation</h3>
+          <p>Recurring tasks, triggers, time-based or event-based.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-plug"></i>
+          <h3>Microservices & API Integration</h3>
+          <p>Connect seamlessly with external services.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-bell"></i>
+          <h3>Monitoring & Alerts</h3>
+          <p>Real-time tracking, email/SMS/phone push notifications.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-bar"></i>
+          <h3>Analytics & Reporting</h3>
+          <p>Overviews of completed tasks, resource usage, and success rates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile App Section -->
+  <section class="mobile-app reveal">
+    <div class="container">
+      <div class="phone-mockup">
+        <img src="phone-mockup.png" alt="Task Scheduler Mobile App">
+      </div>
+      <div class="mobile-app-text">
+        <h2>Manage Tasks On-the-Go</h2>
+        <p>Create, edit, and pause tasks from anywhere.</p>
+        <p>Receive push notifications on task success or failure.</p>
+        <p>Seamless sync with the desktop or web version.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works reveal">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="process-flow">
+        <div class="process-step">
+          <i class="fas fa-cog"></i>
+          <p>Set Up</p>
+        </div>
+        <i class="fas fa-arrow-right process-arrow"></i>
+        <div class="process-step">
+          <i class="fas fa-bolt"></i>
+          <p>Trigger</p>
+        </div>
+        <i class="fas fa-arrow-right process-arrow"></i>
+        <div class="process-step">
+          <i class="fas fa-eye"></i>
+          <p>Monitor</p>
+        </div>
+        <i class="fas fa-arrow-right process-arrow"></i>
+        <div class="process-step">
+          <i class="fas fa-bell"></i>
+          <p>Alert</p>
+        </div>
+        <i class="fas fa-arrow-right process-arrow"></i>
+        <div class="process-step">
+          <i class="fas fa-archive"></i>
+          <p>Archive/Report</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Demo Section -->
+  <section class="live-demo reveal">
+    <div class="container">
+      <h2>Live Demo</h2>
+      <div class="task-list">
+        <div class="task-item">
+          <span>Task 1: Backup Database</span>
+          <span>Status: Completed</span>
+        </div>
+        <div class="task-item">
+          <span>Task 2: Send Reports</span>
+          <span>Status: In Progress</span>
+        </div>
+      </div>
+      <button class="cta-btn add-task-btn">Add Task</button>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials reveal">
+    <div class="container">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial-item active">
+        <p>“The Task Scheduler has saved me countless hours. It's a game-changer for my business.” – Jane Doe, CEO</p>
+      </div>
+      <div class="testimonial-item">
+        <p>“I love the mobile app! I can manage my tasks from anywhere.” – John Smith, Developer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta reveal">
+    <div class="container">
+      <h2>Start Automating Your Tasks Today</h2>
+      <div class="cta-buttons">
+        <button class="cta-btn">Try for Free</button>
+        <button class="cta-btn secondary-cta">Read Documentation</button>
+      </div>
+      <p class="disclaimer">All tasks run on secure servers—no data stored beyond scheduling metadata.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">API Documentation</a>
+        <a href="#">Setup Guide</a>
+        <a href="mailto:contact@example.com">Contact for Custom Solutions</a>
+      </div>
+      <p>Download our mobile app: <a href="#">App Store</a> | <a href="#">Google Play</a></p>
+      <p>© 2023 Task Scheduler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll Reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('how-it-works')) {
+            const steps = entry.target.querySelectorAll('.process-step');
+            steps.forEach((step, index) => {
+              setTimeout(() => step.classList.add('visible'), index * 500);
+            });
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => observer.observe(el));
+
+    // Testimonial Carousel
+    const testimonials = document.querySelectorAll('.testimonial-item');
+    let currentTestimonial = 0;
+    function showNextTestimonial() {
+      testimonials[currentTestimonial].classList.remove('active');
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      testimonials[currentTestimonial].classList.add('active');
+    }
+    setInterval(showNextTestimonial, 5000);
+
+    // Live Demo Add Task (Simple Example)
+    const taskList = document.querySelector('.task-list');
+    const addTaskBtn = document.querySelector('.add-task-btn');
+    addTaskBtn.addEventListener('click', () => {
+      const newTask = document.createElement('div');
+      newTask.className = 'task-item';
+      newTask.innerHTML = `<span>New Task</span><span>Status: Pending</span>`;
+      taskList.appendChild(newTask);
+    });
+  </script>
+</body>
+</html>

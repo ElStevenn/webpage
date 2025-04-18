@@ -1,0 +1,12 @@
+.PHONY: up down rebuild logs
+
+
+up:
+	@docker build -t paus-nginx .
+	@docker run -d -p 80:80 --name paus_webpage paus-nginx
+	@echo "Pau's Application is running successfully"
+
+down:
+	@docker stop paus-nginx
+	@docker rm paus-nginx
+	@docker image rm paus-nginx
