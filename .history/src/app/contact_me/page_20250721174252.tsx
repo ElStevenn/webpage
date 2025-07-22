@@ -1,1 +1,0 @@
-import ContactPage from '@/components/HeroSection'
