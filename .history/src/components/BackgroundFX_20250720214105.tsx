@@ -24,7 +24,7 @@ export default function BackgroundFX({
   className = ''
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const rafRef = useRef<number | null>(null)
+  const rafRef = useRef<number>()
   const bubbleRef = useRef<Bubble[]>([])
   const timeRef = useRef(0)
 

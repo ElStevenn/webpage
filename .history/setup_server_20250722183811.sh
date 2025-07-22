@@ -1,4 +1,5 @@
-#!/bin/bash
+#!bin/bash
+
 
 # clean old build
 rm -rf .next
