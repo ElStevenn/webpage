@@ -32,7 +32,7 @@ export default function OrbitalLangSwitcher({
   }) {
     /* ---------- state ---------- */
     const [open, setOpen] = useState(false)
-    const wrap = useRef<HTMLDivElement>(null)
+    const wrap = useRef<HTMLDivElement | null>(null)
     useOutside(wrap, () => setOpen(false))
   
     /* ---------- persistence & hotkey iguales ---------- */
