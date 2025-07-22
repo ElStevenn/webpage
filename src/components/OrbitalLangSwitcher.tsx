@@ -9,7 +9,7 @@ export const LANGS = [
 ] as const
 type LangCode = typeof LANGS[number]['code']
 
-function useOutside<T extends HTMLElement>(ref: React.RefObject<T>, cb: () => void) {
+function useOutside<T extends HTMLElement>(ref: React.RefObject<T | null>, cb: () => void) {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
