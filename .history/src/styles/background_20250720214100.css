@@ -1,0 +1,59 @@
+/* --- Fondo base minimal --- */
+:root {
+    --bg-base-1:#06090f;
+    --bg-base-2:#0d121b;
+    --bg-base-3:#111b27;
+    --bubble-blue:#58A6FF;
+    --bubble-accent:#2f6ea9;
+  }
+  
+  .bg-base-gradient {
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 25%, rgba(88,166,255,0.12), transparent 60%),
+      radial-gradient(circle at 80% 70%, rgba(88,166,255,0.08), transparent 65%),
+      linear-gradient(145deg,var(--bg-base-1),var(--bg-base-2) 45%,var(--bg-base-3));
+    overflow:hidden;
+  }
+  
+  /* Grain (muy sutil) */
+  .bg-grain {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    mix-blend-mode:overlay;
+    opacity:.07;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 2px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 2px);
+    background-size: 300px 300px, 260px 260px;
+    animation:grain-move 12s linear infinite;
+  }
+  
+  @keyframes grain-move {
+    0% { transform:translate(0,0); }
+    100% { transform:translate(-300px,-300px); }
+  }
+  
+  /* Opcional halo tenue detrás del contenido */
+  .hero-halo {
+    position:absolute;
+    top:50%; left:50%;
+    width:65vmax; height:65vmax;
+    transform:translate(-50%,-50%);
+    background:
+      radial-gradient(circle at 50% 50%, rgba(88,166,255,0.10), transparent 60%);
+    filter:blur(40px);
+    pointer-events:none;
+    opacity:.6;
+  }
+  
+  /* Ajustes para contraste en el hero */
+  .hero-overlay-fade {
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.65) 70%);
+    pointer-events:none;
+  }
+  

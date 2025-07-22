@@ -1,0 +1,144 @@
+'use client'
+import { useEffect, useRef } from 'react'
+
+interface Props {
+  enableNebula?: boolean
+  className?: string
+}
+
+export default function BackgroundFX({ enableNebula = true, className = '' }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const rafRef = useRef<number>()
+  const tRef = useRef(0)
+
+  useEffect(() => {
+    if (!enableNebula) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d', { alpha: true })
+    if (!ctx) return
+
+    let w = window.innerWidth
+    let h = window.innerHeight
+    const dpr = window.devicePixelRatio || 1
+    canvas.width = w * dpr
+    canvas.height = h * dpr
+    canvas.style.width = w + 'px'
+    canvas.style.height = h + 'px'
+    ctx.scale(dpr, dpr)
+
+    const palette = [
+      [0, 13, 17],
+      [24, 37, 50],
+      [88, 166, 255],
+      [247, 129, 102]
+    ]
+
+    const noise = (x: number, y: number, t: number) =>
+      Math.sin(x * 0.0015 + t * 0.0006) +
+      Math.sin(y * 0.0013 + t * 0.00035) +
+      Math.sin((x + y) * 0.0007 + t * 0.00025)
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+
+    const sample = (n: number) => {
+      const i = Math.floor(n * (palette.length - 1))
+      const f = n * (palette.length - 1) - i
+      const c1 = palette[i]
+      const c2 = palette[Math.min(i + 1, palette.length - 1)]
+      return [
+        Math.round(lerp(c1[0], c2[0], f)),
+        Math.round(lerp(c1[1], c2[1], f)),
+        Math.round(lerp(c1[2], c2[2], f))
+      ]
+    }
+
+    const render = () => {
+      tRef.current += 1
+      const t = tRef.current
+      ctx.clearRect(0, 0, w, h)
+
+      const step = 55 // mayor = menos coste
+      for (let y = 0; y < h; y += step) {
+        for (let x = 0; x < w; x += step) {
+          const v = noise(x, y, t)
+            const n = (Math.sin(v) + 1) * 0.5
+          const [r, g, b] = sample(n)
+          const alpha = 0.08 + n * 0.25
+          ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`
+          const size = step * (0.8 + n * 1.4) + Math.sin(t * 0.002 + x * 0.01) * 2
+          ctx.beginPath()
+          ctx.ellipse(
+            x + Math.sin(t * 0.001 + y * 0.01) * 10,
+            y + Math.cos(t * 0.0012 + x * 0.01) * 10,
+            size * 0.55,
+            size * 0.38,
+            v,
+            0,
+            Math.PI * 2
+          )
+          ctx.fill()
+        }
+      }
+
+      // Vignette
+      const radial = ctx.createRadialGradient(
+        w * 0.5,
+        h * 0.55,
+        w * 0.1,
+        w * 0.5,
+        h * 0.5,
+        w * 0.7
+      )
+      radial.addColorStop(0, 'rgba(0,0,0,0)')
+      radial.addColorStop(1, 'rgba(0,0,0,0.55)')
+      ctx.fillStyle = radial
+      ctx.fillRect(0, 0, w, h)
+
+      rafRef.current = requestAnimationFrame(render)
+    }
+    render()
+
+    const onResize = () => {
+      w = window.innerWidth
+      h = window.innerHeight
+      const d = window.devicePixelRatio || 1
+      canvas.width = w * d
+      canvas.height = h * d
+      canvas.style.width = w + 'px'
+      canvas.style.height = h + 'px'
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.scale(d, d)
+    }
+    window.addEventListener('resize', onResize)
+
+    const vis = () => {
+      if (document.hidden && rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      } else if (!document.hidden) {
+        render()
+      }
+    }
+    document.addEventListener('visibilitychange', vis)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+      document.removeEventListener('visibilitychange', vis)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [enableNebula])
+
+  if (!enableNebula) return null
+  return (
+    <div className={`absolute inset-0 -z-10 ${className}`}>
+      <div className="bg-animated-gradient" />
+      <div className="bg-blobs" />
+      <div className="bg-stars" />
+      <div className="bg-noise" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full opacity-[0.55] mix-blend-plus-lighter"
+      />
+    </div>
+  )
+}
