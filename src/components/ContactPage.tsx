@@ -10,8 +10,10 @@ import {
   useSpring,
   useScroll,
   useTransform,
+  Variants
 } from 'framer-motion'
 import BackgroundFX from './BackgroundFX'
+
 
 /* ---------- Helpers ---------- */
 
@@ -169,11 +171,11 @@ export default function HeroSection() {
   }, [])
 
   /* Staggered entry */
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: .07, delayChildren: .12 } },
   }
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 28, filter: 'blur(8px)' },
     show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: .7, ease: 'easeOut' } },
   }
