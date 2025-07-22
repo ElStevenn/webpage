@@ -9,12 +9,16 @@ export const LANGS = [
 ] as const
 type LangCode = typeof LANGS[number]['code']
 
-function useOutside(ref: React.RefObject<HTMLElement>, cb: () => void) {
+function useOutside<T extends HTMLElement>(ref: React.RefObject<T>, cb: () => void) {
   useEffect(() => {
-    const h = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && cb()
-    document.addEventListener('mousedown', h)
-    return () => document.removeEventListener('mousedown', h)
-  }, [cb])
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        cb()
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [ref, cb])
 }
 
 export default function OrbitalLangSwitcher({
