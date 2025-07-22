@@ -41,10 +41,10 @@ export default function AboutSection() {
       y: [0, -80, 100, 0],
       rotate: [0, 40, -40, 0],
             transition: {
-            repeat: Infinity,
-            repeatType: 'mirror',
-            duration: 34,
-            ease: 'easeInOut'
+              repeat: Infinity,
+                repeatType: 'mirror',
+                duration: 34,
+                ease: 'easeInOut'
      }
     }
   }

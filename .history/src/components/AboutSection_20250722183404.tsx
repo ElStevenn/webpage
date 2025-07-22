@@ -40,12 +40,12 @@ export default function AboutSection() {
       x: [0, -120, 60, 0],
       y: [0, -80, 100, 0],
       rotate: [0, 40, -40, 0],
-            transition: {
-            repeat: Infinity,
-            repeatType: 'mirror',
-            duration: 34,
-            ease: 'easeInOut'
-     }
+      +      transition: {
+        +        repeat: Infinity,
+        +        repeatType: 'mirror',
+        +        duration: 34,
+        +        ease: 'easeInOut'
+        +      }
     }
   }
 

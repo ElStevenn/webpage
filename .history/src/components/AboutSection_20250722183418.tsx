@@ -42,9 +42,9 @@ export default function AboutSection() {
       rotate: [0, 40, -40, 0],
             transition: {
             repeat: Infinity,
-            repeatType: 'mirror',
-            duration: 34,
-            ease: 'easeInOut'
+                repeatType: 'mirror',
+                duration: 34,
+                ease: 'easeInOut'
      }
     }
   }
