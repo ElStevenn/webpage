@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import {
   motion, AnimatePresence, useMotionValue, useSpring,
-  useScroll, useTransform
+  useScroll, useTransform, Variants
 } from 'framer-motion'
 import BackgroundFX from './BackgroundFX'
 
@@ -150,11 +150,11 @@ export default function HeroSection() {
     return () => window.removeEventListener('scroll', onS)
   }, [])
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: .07, delayChildren: .12 } }
   }
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 28, filter: 'blur(8px)' },
     show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: .7, ease: 'easeOut' } }
   }
