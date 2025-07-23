@@ -6,45 +6,45 @@ DOMAIN="paumateu.com"
 EMAIL="paumat17@gmail.com"
 
 APP_DIR="/home/ubuntu/webpage"
-PM2_APP_NAME="next-app"
+PM2_APP="next-app"
+PM2_START_CMD="HOST=0.0.0.0 npm start"
 
+# Paths for Certbot webroot fallback if plugin fails
 WEBROOT="/var/www/letsencrypt"
-ACME_PATH="${WEBROOT}/.well-known/acme-challenge"
+ACME_PATH="${WEBROOT}/.well-known"
 
-NGINX_CONF="/etc/nginx/sites-available/${DOMAIN}"
+# Nginx site config names
+NGINX_SITE="/etc/nginx/sites-available/${DOMAIN}"
 NGINX_ENABLED="/etc/nginx/sites-enabled/${DOMAIN}"
 # ─────────────────────────────────────────────────────────────────────────────
 
-echo "▶ 1. Stop existing PM2 process"
-pm2 delete "${PM2_APP_NAME}" 2>/dev/null || true
+echo "▶ 0. Install prerequisites"
+apt-get update
+apt-get install -y nginx certbot python3-certbot-nginx
 
-echo "▶ 2. Build Next.js app"
+echo "▶ 1. Stop & remove old PM2 process"
+pm2 delete "${PM2_APP}" 2>/dev/null || true
+
+echo "▶ 2. Build your Next.js app"
 cd "${APP_DIR}"
 npm ci
 npm run build
 
-echo "▶ 3. Start with PM2 bound to 0.0.0.0:3000"
-pm2 start "HOST=0.0.0.0 npm start" --name "${PM2_APP_NAME}"
+echo "▶ 3. Start under PM2"
+pm2 start ${PM2_START_CMD} --name "${PM2_APP}"
 pm2 save
 
-echo "▶ 4. Prepare ACME webroot"
-sudo mkdir -p "${ACME_PATH}"
-sudo chown -R www-data:www-data "$(dirname "${WEBROOT}")"
+echo "▶ 4. Prepare fallback webroot (in case plugin needs it)"
+mkdir -p "${ACME_PATH}"
+chown -R www-data:www-data "${WEBROOT}"
 
-echo "▶ 5. Write Nginx HTTP vhost for ACME & proxy"
-sudo tee "${NGINX_CONF}" > /dev/null <<EOF
+echo "▶ 5. Write Nginx proxy config (HTTP only)"
+cat > "${NGINX_SITE}" <<EOF
 server {
     listen 80;
     server_name ${DOMAIN} www.${DOMAIN};
 
-    # ACME challenge location
-    location ^~ /.well-known/acme-challenge/ {
-        alias ${ACME_PATH}/;
-        default_type text/plain;
-        try_files \$uri =404;
-    }
-
-    # Proxy all other traffic to Next.js
+    # Proxy all non-ACME traffic to Next.js
     location / {
         proxy_pass         http://127.0.0.1:3000;
         proxy_http_version 1.1;
@@ -56,53 +56,23 @@ server {
 }
 EOF
 
-sudo ln -sf "${NGINX_CONF}" "${NGINX_ENABLED}"
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo nginx -t
-sudo systemctl reload nginx
+# Enable and test
+ln -sf "${NGINX_SITE}" "${NGINX_ENABLED}"
+rm -f /etc/nginx/sites-enabled/default
+nginx -t
+systemctl reload nginx
 
-echo "▶ 6. Verify ACME path is served"
-echo "ping" | sudo tee "${ACME_PATH}/probe" > /dev/null
-curl -sf "http://localhost/.well-known/acme-challenge/probe" \
-  || { echo "❌ ACME path 404 – fix Nginx before continuing"; exit 1; }
-sudo rm "${ACME_PATH}/probe"
+echo "▶ 6. Obtain & install SSL via Certbot Nginx plugin"
+certbot --nginx \
+  --non-interactive --agree-tos \
+  --redirect \
+  --email "${EMAIL}" \
+  -d "${DOMAIN}" -d "www.${DOMAIN}"
 
-echo "▶ 7. Request/Renew Let’s Encrypt certificate"
-sudo certbot certonly --webroot -w "${WEBROOT}" \
-     -d "${DOMAIN}" -d "www.${DOMAIN}" \
-     --email "${EMAIL}" --agree-tos --non-interactive
+echo "▶ 7. Final Nginx test & reload"
+nginx -t
+systemctl reload nginx
 
-echo "▶ 8. Write Nginx HTTPS vhost to enable TLS"
-sudo tee "${NGINX_CONF}" > /dev/null <<EOF
-# Redirect HTTP → HTTPS
-server {
-    listen 80;
-    server_name ${DOMAIN} www.${DOMAIN};
-    return 301 https://\$host\$request_uri;
-}
-
-# HTTPS server
-server {
-    listen 443 ssl http2;
-    server_name ${DOMAIN} www.${DOMAIN};
-
-    ssl_certificate     /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
-    include             /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
-
-    location / {
-        proxy_pass         http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-        proxy_set_header   Upgrade \$http_upgrade;
-        proxy_set_header   Connection 'upgrade';
-        proxy_set_header   Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-    }
-}
-EOF
-
-sudo nginx -t
-sudo systemctl reload nginx
-
-echo "✅  Deployed! Visit: https://${DOMAIN}"
+echo "✅ Deployment complete!"
+echo "   • Your site should now be live at https://${DOMAIN}"
+echo "   • PM2 name: ${PM2_APP}  (port 3000 → proxied by Nginx)"
