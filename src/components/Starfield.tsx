@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 export default function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const starsRef = useRef<any[]>([])
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -48,7 +48,7 @@ export default function Starfield() {
 
     return () => {
       window.removeEventListener('resize', resize)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
   }, [])
 
