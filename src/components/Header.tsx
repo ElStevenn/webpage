@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import OrbitalLangSwitcher, { LANGS } from './OrbitalLangSwitcher'
+import { usePathname } from 'next/navigation';
 type LangCode = typeof LANGS[number]['code']
 
 
@@ -30,7 +31,8 @@ export default function Header() {
   const [roleIndex, setRoleIndex]   = useState(0)
   const [hidden, setHidden]     = useState(false)
   const [progress, setProgress] = useState(0)
-  const [lang, setLang] = useState<LangCode>('en')
+  const pathname = usePathname();
+  const lang = (pathname.split('/')[1] as LangCode) || 'en';
 
   const lastScroll = useRef(0)
   const headerRef = useRef<HTMLElement | null>(null)
@@ -199,14 +201,7 @@ export default function Header() {
           {/* CTA + Badge */}
           {/* Lang Switcher + Badge + CTA */}
           <div className="hidden md:flex items-center gap-5">
-            <OrbitalLangSwitcher
-              value={lang}
-              onChange={(code) => {
-                setLang(code)
-                /* Conecta aquí tu librería de i18n:
-                  router.replace(pathname, { locale: code }) */
-              }}
-            />
+            <OrbitalLangSwitcher value={lang} />
 
             <span className="relative flex items-center">
               <span className="absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping bg-emerald-500/40" />

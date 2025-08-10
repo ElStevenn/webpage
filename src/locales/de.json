@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "services": "Dienstleistungen",
+    "hireMe": "Beauftragen",
+    "available": "Verfügbar"
+  },
+  "hero": {
+    "greeting": "Hallo, ich bin Pau",
+    "subtitle": "Entwicklung robuster Cloud-Plattformen, automatisierte Bereitstellungspipelines & Zero-Trust-Infrastruktur mit konsequentem Fokus auf Leistung, Zuverlässigkeit und Datenschutz.",
+    "exploreProjects": "Meine Projekte ansehen",
+    "contactMe": "Kontakt aufnehmen",
+    "chess": "Schachliebhaber",
+    "privacy": "Datenschutzorientiert",
+    "aboutBtn": "ÜBER MICH",
+    "scrollToAbout": "Zu Über mich scrollen",
+    "cli": "$",
+    "roles": ["DevOps-Ingenieur", "Plattform & Zuverlässigkeit", "Sicherheitsautomatisierung", "Cloud-Architekt"]
+  },
+  "about": {
+    "title": "Über mich",
+    "intro": "Ich bin <1>Pau Mateu</1> – DevOps-Enthusiast, Cloud-Tüftler und unermüdlicher Automatisierungsfan. Mein Werkzeugkasten verwandelt chaotische Deployments in nahtlose Delivery-Pipelines. In der Freizeit? Baue ich API-Integrationen, lerne Sprachen und suche den perfekten Espresso.",
+    "highlights": [
+      {
+        "title": "DevOps-Ingenieur",
+        "blurb": "Über 4 Jahre Automatisierung von Cloud-nativen Infrastrukturen und CI/CD-Pipelines."
+      },
+      {
+        "title": "Cloud-Architekt",
+        "blurb": "Kubernetes-Cluster & VPC-Netzwerke auf AWS, GCP und DigitalOcean entworfen."
+      },
+      {
+        "title": "Python-Enthusiast",
+        "blurb": "FastAPI, NumPy, Datenpipelines – sauber, typisiert, getestet."
+      },
+      {
+        "title": "Open-Source-Liebhaber",
+        "blurb": "Beitrag zu IaC-Modulen und Container-Tools."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projekte",
+    "cta": {
+      "idea": "Hast du eine ambitionierte Idee? Lass sie uns verwirklichen.",
+      "start": "Starte ein Gespräch"
+    },
+    "mvp": "MVP",
+    "private": "Privates Projekt",
+    "viewCase": "Fall ansehen →",
+    "list": [
+      {
+        "title": "Axrion",
+        "blurb": "Selbstgehostete Observability-Suite, die Millionen von Metriken pro Sekunde verarbeitet und Anomalien mit ML-gestützten Einblicken erkennt."
+      },
+      {
+        "title": "Task Scheduler",
+        "blurb": "Deklaratives Cron-Tool: alles ausführen, alles überwachen, ruhig schlafen."
+      },
+      {
+        "title": "Individueller Chatbot",
+        "blurb": "24/7-Support-Agent, betrieben durch Vektorsuche & feinabgestimmte LLMs."
+      },
+      {
+        "title": "Ulpiano",
+        "blurb": "Mein LegalTech-Flaggschiff – automatisiert Nachlass- & Erbschaftsprozesse für Kanzleien und Notare von Anfang bis Ende."
+      },
+      {
+        "title": "SkyShield Server",
+        "blurb": "Gehärtetes Linux-Image mit automatischen Patches & Live-Restore-Clustern."
+      },
+      {
+        "title": "BillFlow Automator",
+        "blurb": "Rechnungen erfassen, Details per OCR auslesen, Zahlungen planen und mit der Buchhaltung synchronisieren – vollautomatisierte Abrechnung."
+      }
+    ]
+  },
+  "services": {
+    "title": "Dienstleistungen",
+    "packs": [
+      {
+        "title": "Produktstrategie-Beratung",
+        "price": "€60 / 30 Min.",
+        "blurb": "Fachkundige Beratung zur Produktentwicklung, Strategieoptimierung und Lösung zentraler Herausforderungen.",
+        "tag": "Bester Einstieg"
+      },
+      {
+        "title": "Startup-Mentoring",
+        "price": "€120–€200 / Std.",
+        "blurb": "Individuelle 1:1-Sitzungen für Gründer und Early-Stage-Teams zu Technik, Produkt & Wachstum.",
+        "tag": "Gründerfokus"
+      },
+      {
+        "title": "KI-Automatisierungsberatung",
+        "price": "€100 / Std.",
+        "blurb": "Praktische Tipps zur Automatisierung von Geschäftsprozessen mit KI – ideal für Kanzleien & Steuerberater.",
+        "tag": "Demnächst"
+      }
+    ],
+    "waitlist": "Warteliste öffnet bald",
+    "book": "Termin buchen →"
+  },
+  "contact": {
+    "title": "Lass uns reden 👋",
+    "subtitle": "Schreib mir, teile eine Idee oder sag einfach Hallo – ich antworte innerhalb von 24h.",
+    "name": "Name",
+    "email": "E-Mail",
+    "projectType": "Projekttyp",
+    "projectOptions": {
+      "devops": "DevOps-Automatisierung",
+      "k8s": "Kubernetes-Architektur",
+      "backend": "Backend-API",
+      "consult": "Beratung / Audit"
+    },
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "thankYou": "Danke! 🚀",
+    "success": "Deine Nachricht wurde erfolgreich gesendet. Ich antworte so schnell wie möglich.",
+    "backHome": "← Zurück zur Startseite",
+    "bookCall": "Termin buchen",
+    "copied": "Kopiert!",
+    "emailAddress": "pau@example.com",
+    "phone": "+34 600 123 456",
+    "github": "github.com/pau",
+    "linkedin": "linkedin.com/in/pau",
+    "twitter": "@pau"
+  },
+  "faq": {
+    "title": "Häufig gefragt",
+    "list": [
+      {
+        "q": "Arbeitest du mit Startups oder nur mit großen Unternehmen?",
+        "a": "Ich unterstütze gerne sowohl Early-Stage-Teams als auch Unternehmenskunden – die Herausforderung zählt."
+      },
+      {
+        "q": "Wie schnell antwortest du normalerweise?",
+        "a": "Innerhalb von 24 Stunden an Werktagen, oft schneller."
+      },
+      {
+        "q": "Können wir zuerst ein Kennenlerngespräch vereinbaren?",
+        "a": "Auf jeden Fall. Klicke oben auf „Termin buchen“ und wähle einen passenden Slot."
+      }
+    ]
+  }
+} 

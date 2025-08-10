@@ -1,21 +1,20 @@
-// src/app/layout.tsx
-import type { ReactNode } from 'react'
-import '../app/globals.css'
-import '@/styles/background.css' 
-import Header from '@/components/Header'
+import './globals.css';
+import '@/styles/background.css';
 
 export const metadata = {
   title: 'Pau Mateu',
-  description: 'Portfolio – DevOps & Backend',
-}
+  description: 'Portfolio – DevOps & Backend'
+};
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body className="bg-[#0D1117] text-[#C9D1D9] antialiased">
-        <Header />
+    <html lang="en">
+      <body className="bg-[#0D1117] text-[#C9D1D9] antialiased relative">
+        {/* subtle base background & grain */}
+        <div className="bg-base-gradient" />
+        <div className="bg-grain" />
         {children}
       </body>
     </html>
-  )
-}
+  );
+} 

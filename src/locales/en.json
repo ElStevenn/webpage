@@ -1,0 +1,149 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "services": "Services",
+    "hireMe": "Hire Me",
+    "available": "Available"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Pau",
+    "subtitle": "Engineering resilient cloud platforms, automated delivery pipelines & zero‑trust infrastructure with relentless focus on performance, reliability and privacy.",
+    "exploreProjects": "Explore My Projects",
+    "contactMe": "Contact Me",
+    "chess": "Chess Enthusiast",
+    "privacy": "Privacy Focused",
+    "aboutBtn": "ABOUT",
+    "scrollToAbout": "Scroll to About",
+    "cli": "$",
+    "roles": ["DevOps Engineer", "Platform & Reliability", "Security Automation", "Cloud Architect"]
+  },
+  "about": {
+    "title": "About me",
+    "intro": "I’m <1>Pau Mateu</1> – DevOps addict, cloud tinkerer and relentless automation evangelist. My toolkit turns chaotic deployments into seamless delivery pipelines. Off‑hours? I craft API integrations, learn languages and hunt the perfect espresso.",
+    "highlights": [
+      {
+        "title": "DevOps Engineer",
+        "blurb": "4+ years automating cloud‑native infrastructures and CI/CD pipelines."
+      },
+      {
+        "title": "Cloud Architect",
+        "blurb": "Designed Kubernetes clusters & VPC networks on AWS, GCP and DigitalOcean."
+      },
+      {
+        "title": "Python Enthusiast",
+        "blurb": "FastAPI, NumPy, data pipelines – clean, typed, tested."
+      },
+      {
+        "title": "Open‑Source Lover",
+        "blurb": "Contributor to IaC modules and container tooling."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "cta": {
+      "idea": "Got an ambitious idea? Let’s make it real.",
+      "start": "Start a conversation"
+    },
+    "mvp": "MVP",
+    "private": "Private Project",
+    "viewCase": "View Case →",
+    "list": [
+      {
+        "title": "Axrion",
+        "blurb": "Self‑hosted observability suite that ingests millions of metrics per second and surfaces anomalies with ML‑driven insights."
+      },
+      {
+        "title": "Task Scheduler",
+        "blurb": "Declarative cron‑on‑steroids: run anything, track everything, sleep peacefully."
+      },
+      {
+        "title": "Custom Chatbot",
+        "blurb": "24/7 support agent powered by vector search & fine‑tuned LLMs."
+      },
+      {
+        "title": "Ulpiano",
+        "blurb": "My flagship LegalTech venture – automates probate & inheritance workflows end‑to‑end for law firms and notaries."
+      },
+      {
+        "title": "SkyShield Server",
+        "blurb": "Hardened Linux image with automatic patching & live‑restore clusters."
+      },
+      {
+        "title": "BillFlow Automator",
+        "blurb": "Capture invoices, OCR details, schedule payments and sync to your ledger – zero‑touch billing."
+      }
+    ]
+  },
+  "services": {
+    "title": "Services",
+    "packs": [
+      {
+        "title": "Product Strategy Consultation",
+        "price": "€60 / 30 min",
+        "blurb": "Expert guidance on shaping product direction, refining strategy and solving key challenges.",
+        "tag": "Best Starter"
+      },
+      {
+        "title": "Startup Mentorship",
+        "price": "€120–€200 / hr",
+        "blurb": "Tailored 1:1 sessions for founders and early‑stage teams covering tech, product & growth.",
+        "tag": "Founder Focus"
+      },
+      {
+        "title": "AI Automation Consultation",
+        "price": "€100 / hr",
+        "blurb": "Practical advice on automating business processes with AI – ideal for law & accounting firms.",
+        "tag": "Coming Soon"
+      }
+    ],
+    "waitlist": "Waitlist opening soon",
+    "book": "Book a call →"
+  },
+  "contact": {
+    "title": "Let’s Talk 👋",
+    "subtitle": "Drop me a line, share an idea, or just say hi – I reply within 24h.",
+    "name": "Name",
+    "email": "Email",
+    "projectType": "Project type",
+    "projectOptions": {
+      
+      "devops": "DevOps automation",
+      "k8s": "Kubernetes architecture",
+      "backend": "Backend API",
+      "consult": "Consulting / Audit"
+    },
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending…",
+    "thankYou": "Thank you! 🚀",
+    "success": "Your message was sent successfully. I’ll reply as soon as possible.",
+    "backHome": "← Back to home",
+    "bookCall": "Book a call",
+    "copied": "Copied!",
+    "emailAddress": "pau@example.com",
+    "phone": "+34 600 123 456",
+    "github": "github.com/pau",
+    "linkedin": "linkedin.com/in/pau",
+    "twitter": "@pau"
+  },
+  "faq": {
+    "title": "Frequently asked",
+    "list": [
+      {
+        "q": "Do you work with startups or only large companies?",
+        "a": "I love helping early‑stage teams just as much as enterprise clients – the challenge is what matters."
+      },
+      {
+        "q": "What’s your typical response time?",
+        "a": "Within 24 hours during weekdays, often quicker."
+      },
+      {
+        "q": "Can we schedule a discovery call first?",
+        "a": "Absolutely. Hit the “Book a call” button above and pick any slot that suits you."
+      }
+    ]
+  }
+} 

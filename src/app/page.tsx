@@ -1,17 +1,6 @@
-import HeroSection from '@/components/HeroSection'
-import AboutSection from '@/components/AboutSection'
-import ScrollProgressBar from '@/components/ScrollProgressBar'
-import ProjectsSection  from '@/components/ProjectsSection'
-import ServicesSection from '@/components/ServicesSection'
+import { redirect } from 'next/navigation';
 
-export default function HomePage() {
-  return (
-    <main>
-      <ScrollProgressBar />
-      <HeroSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ServicesSection />
-    </main>
-  )
-}
+export default function IndexPage() {
+  redirect('/en');
+  return null;
+} 

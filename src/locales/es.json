@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "services": "Servicios",
+    "hireMe": "Contrátame",
+    "available": "Disponible"
+  },
+  "hero": {
+    "greeting": "Hola, soy Pau",
+    "subtitle": "Ingeniería de plataformas cloud resilientes, pipelines de entrega automatizados e infraestructura zero‑trust con un enfoque implacable en rendimiento, fiabilidad y privacidad.",
+    "exploreProjects": "Explora mis proyectos",
+    "contactMe": "Contáctame",
+    "chess": "Aficionado al ajedrez",
+    "privacy": "Enfoque en privacidad",
+    "aboutBtn": "SOBRE MÍ",
+    "scrollToAbout": "Ir a Sobre mí",
+    "cli": "$",
+    "roles": ["Ingeniero DevOps", "Plataforma y Fiabilidad", "Automatización de Seguridad", "Arquitecto Cloud"]
+  },
+  "about": {
+    "title": "Sobre mí",
+    "intro": "Soy <1>Pau Mateu</1> – adicto a DevOps, entusiasta de la nube y evangelista incansable de la automatización. Mi kit de herramientas convierte despliegues caóticos en pipelines de entrega sin fisuras. ¿Tiempo libre? Desarrollo integraciones API, aprendo idiomas y busco el espresso perfecto.",
+    "highlights": [
+      {
+        "title": "Ingeniero DevOps",
+        "blurb": "Más de 4 años automatizando infraestructuras cloud‑native y pipelines CI/CD."
+      },
+      {
+        "title": "Arquitecto Cloud",
+        "blurb": "Diseñé clústeres de Kubernetes y redes VPC en AWS, GCP y DigitalOcean."
+      },
+      {
+        "title": "Entusiasta de Python",
+        "blurb": "FastAPI, NumPy, data pipelines – limpio, tipado, probado."
+      },
+      {
+        "title": "Amante del Open‑Source",
+        "blurb": "Colaborador en módulos IaC y herramientas de contenedores."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Proyectos",
+    "cta": {
+      "idea": "¿Tienes una idea ambiciosa? Hagámosla realidad.",
+      "start": "Inicia una conversación"
+    },
+    "mvp": "MVP",
+    "private": "Proyecto Privado",
+    "viewCase": "Ver caso →",
+    "list": [
+      {
+        "title": "Axrion",
+        "blurb": "Suite de observabilidad auto‑gestionada que ingiere millones de métricas por segundo y detecta anomalías con insights impulsados por ML."
+      },
+      {
+        "title": "Task Scheduler",
+        "blurb": "Cron declarativo potenciado: ejecuta cualquier cosa, monitoriza todo, duerme tranquilo."
+      },
+      {
+        "title": "Chatbot Personalizado",
+        "blurb": "Agente de soporte 24/7 impulsado por búsqueda vectorial y LLMs ajustados."
+      },
+      {
+        "title": "Ulpiano",
+        "blurb": "Mi principal proyecto LegalTech – automatiza flujos de herencias y sucesiones de principio a fin para despachos y notarías."
+      },
+      {
+        "title": "SkyShield Server",
+        "blurb": "Imagen Linux reforzada con parches automáticos y clústeres de restauración en vivo."
+      },
+      {
+        "title": "BillFlow Automator",
+        "blurb": "Captura facturas, extrae datos por OCR, programa pagos y sincroniza con tu contabilidad – facturación sin esfuerzo."
+      }
+    ]
+  },
+  "services": {
+    "title": "Servicios",
+    "packs": [
+      {
+        "title": "Consultoría de Estrategia de Producto",
+        "price": "€60 / 30 min",
+        "blurb": "Asesoramiento experto para definir la dirección del producto, refinar la estrategia y resolver retos clave.",
+        "tag": "Mejor Inicio"
+      },
+      {
+        "title": "Mentoría para Startups",
+        "price": "€120–€200 / h",
+        "blurb": "Sesiones 1:1 personalizadas para fundadores y equipos en fase inicial sobre tecnología, producto y crecimiento.",
+        "tag": "Enfoque Fundador"
+      },
+      {
+        "title": "Consultoría de Automatización con IA",
+        "price": "€100 / h",
+        "blurb": "Consejos prácticos para automatizar procesos de negocio con IA – ideal para despachos y asesorías.",
+        "tag": "Próximamente"
+      }
+    ],
+    "waitlist": "Lista de espera próximamente",
+    "book": "Reserva una llamada →"
+  },
+  "contact": {
+    "title": "Hablemos 👋",
+    "subtitle": "Envíame un mensaje, comparte una idea o simplemente saluda – respondo en menos de 24h.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "projectType": "Tipo de proyecto",
+    "projectOptions": {
+      "devops": "Automatización DevOps",
+      "k8s": "Arquitectura Kubernetes",
+      "backend": "API Backend",
+      "consult": "Consultoría / Auditoría"
+    },
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "thankYou": "¡Gracias! 🚀",
+    "success": "Tu mensaje se envió correctamente. Te responderé lo antes posible.",
+    "backHome": "← Volver al inicio",
+    "bookCall": "Reserva una llamada",
+    "copied": "¡Copiado!",
+    "emailAddress": "pau@example.com",
+    "phone": "+34 600 123 456",
+    "github": "github.com/pau",
+    "linkedin": "linkedin.com/in/pau",
+    "twitter": "@pau"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "list": [
+      {
+        "q": "¿Trabajas con startups o solo con grandes empresas?",
+        "a": "Me encanta ayudar tanto a equipos en fase inicial como a clientes empresariales – el reto es lo que importa."
+      },
+      {
+        "q": "¿Cuál es tu tiempo de respuesta habitual?",
+        "a": "En menos de 24 horas en días laborables, a menudo antes."
+      },
+      {
+        "q": "¿Podemos agendar una llamada de descubrimiento primero?",
+        "a": "Por supuesto. Haz clic en “Reserva una llamada” arriba y elige el horario que prefieras."
+      }
+    ]
+  }
+} 

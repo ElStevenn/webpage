@@ -87,12 +87,15 @@ export default function ContactPage() {
                   <label className="absolute left-4 top-2 text-xs text-white/50 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-white/30 peer-focus:top-2 peer-focus:text-xs peer-focus:text-brand-blue">{label}</label>
                 </div>
               ))}
-              <select required value={project} onChange={e=>setProject(e.target.value)} className="w-full rounded-md bg-transparent border border-white/15 px-4 py-3 text-sm text-white/80 focus:outline-none focus:ring-2 focus:ring-brand-blue/60 appearance-none">
-                <option value="" disabled>Project type</option>
-                <option value="devops">DevOps automation</option>
-                <option value="k8s">Kubernetes architecture</option>
-                <option value="backend">Backend API</option>
-                <option value="consult">Consulting / Audit</option>
+              <select required value={project} onChange={e=>setProject(e.target.value)} 
+                className="w-full rounded-md bg-[#181c23] border border-white/15 px-4 py-3 text-sm text-white/90 focus:outline-none focus:ring-2 focus:ring-brand-blue/60 appearance-none relative pr-10"
+                style={{backgroundImage: `url('data:image/svg+xml;utf8,<svg fill=\'white\' height=\'20\' viewBox=\'0 0 20 20\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z\'/></svg>')`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1.25em 1.25em'}}
+              >
+                <option value="" disabled className="bg-[#232834] text-white/60">Project type</option>
+                <option value="devops" className="bg-[#232834] text-white">DevOps automation</option>
+                <option value="k8s" className="bg-[#232834] text-white">Kubernetes architecture</option>
+                <option value="backend" className="bg-[#232834] text-white">Backend API</option>
+                <option value="consult" className="bg-[#232834] text-white">Consulting / Audit</option>
               </select>
               <div className="relative">
                 <textarea required rows={5} placeholder=" " className="peer w-full rounded-md bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue/60 placeholder-transparent"></textarea>
@@ -114,18 +117,28 @@ export default function ContactPage() {
       </motion.section>
 
       {/* FAQ */}
-      <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{duration:.6,ease:'easeOut'}} className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-brand-blue via-white to-brand-coral bg-clip-text text-transparent">Frequently asked</h2>
+      <motion.section initial={{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{duration:.6,ease:'easeOut'}} className="max-w-5xl mx-auto mt-20 px-0 md:px-2">
+        <div className="flex items-center gap-3 mb-8">
+          <svg width="32" height="32" fill="none" viewBox="0 0 24 24" className="text-brand-blue"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 20v-2m0-2a6 6 0 1 0-6-6"/><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/></svg>
+          <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-brand-blue via-white to-brand-coral bg-clip-text text-transparent">Frequently asked</h2>
+        </div>
+        <div className="flex flex-col gap-5">
         {[
           ['Do you work with startups or only large companies?','I love helping early‑stage teams just as much as enterprise clients – the challenge is what matters.'],
           ['What’s your typical response time?','Within 24 hours during weekdays, often quicker.'],
           ['Can we schedule a discovery call first?','Absolutely. Hit the “Book a call” button above and pick any slot that suits you.']
-        ].map(([q,a])=> (
-          <details key={q} className="mb-3 rounded-lg border border-white/10 bg-white/5 p-4 [&_summary]:cursor-pointer">
-            <summary className="font-medium">{q}</summary>
-            <p className="mt-2 text-sm text-white/70 leading-relaxed">{a}</p>
+        ].map(([q,a],i)=> (
+          <details key={q} className="w-full group rounded-xl border border-white/10 bg-white/10 p-6 shadow-lg transition-all duration-300 hover:border-brand-blue/40 focus-within:border-brand-blue/60">
+            <summary className="flex items-center font-semibold text-lg cursor-pointer select-none outline-none focus:text-brand-blue transition-colors">
+              <span className="flex-1">{q}</span>
+              <svg className="ml-2 w-5 h-5 text-brand-blue transition-transform duration-300 group-open:rotate-90" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </summary>
+            <motion.div initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} transition={{duration:.3}} className="overflow-hidden">
+              <p className="mt-3 text-base text-white/80 leading-relaxed pl-1 pr-2 pb-1">{a}</p>
+            </motion.div>
           </details>
         ))}
+        </div>
       </motion.section>
 
       {/* calendar modal */}
